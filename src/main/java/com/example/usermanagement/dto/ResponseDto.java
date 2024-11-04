@@ -13,5 +13,5 @@ import java.util.Objects;
 public class ResponseDto {
     private String responseCode;
     private String responseMsg;
-    private List<Objects> content;
+    private Objects content;
 }
