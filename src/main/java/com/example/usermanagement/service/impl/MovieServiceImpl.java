@@ -2,6 +2,7 @@ package com.example.usermanagement.service.impl;
 
 import com.example.usermanagement.Exception.AuthenticationException;
 import com.example.usermanagement.Exception.BadRequestException;
+import com.example.usermanagement.dto.MovieDto;
 import com.example.usermanagement.dto.ResponseDto;
 import com.example.usermanagement.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -33,4 +34,22 @@ public class MovieServiceImpl implements MovieService {
         }
 
     }
+
+    @Override
+    public ResponseDto getMovieByImdb(String imdb) {
+        try {
+            String url="http://localhost:8080/api/v1/movies/"+imdb;
+            ResponseEntity<MovieDto> response = restTemplate.getForEntity(url, MovieDto.class);
+            if (response.getBody()==null){
+                return new ResponseDto("02","No Such Movie Found",null);
+            }
+            return new ResponseDto("00","Success",response.getBody());
+
+
+        }catch (Exception ex){
+            throw new BadRequestException();
+        }
+
+    }
+
 }

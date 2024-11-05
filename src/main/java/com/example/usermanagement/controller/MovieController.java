@@ -5,6 +5,7 @@ import com.example.usermanagement.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +20,11 @@ public class MovieController {
     @GetMapping("/get-all-movie")
     public ResponseEntity<ResponseDto> getAllMovies(){
        return ResponseEntity.ok(movieService.getAllMovies());
+    }
+
+    @GetMapping("/get-movie/{imdb}")
+    public ResponseEntity<ResponseDto> getMovieByImdb(@PathVariable String imdb){
+        return ResponseEntity.ok(movieService.getMovieByImdb(imdb));
+
     }
 }

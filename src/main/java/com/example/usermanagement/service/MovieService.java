@@ -8,4 +8,5 @@ import java.util.List;
 public interface MovieService {
 
     ResponseDto getAllMovies();
+    ResponseDto getMovieByImdb(String imdb);
 }
