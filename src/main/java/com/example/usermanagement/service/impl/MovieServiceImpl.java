@@ -5,8 +5,10 @@ import com.example.usermanagement.Exception.BadRequestException;
 import com.example.usermanagement.dto.MovieDto;
 import com.example.usermanagement.dto.ResponseDto;
 import com.example.usermanagement.service.MovieService;
+import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -50,6 +52,21 @@ public class MovieServiceImpl implements MovieService {
             throw new BadRequestException();
         }
 
+    }
+
+    @Override
+    public ResponseDto addMovie(MovieDto movieDto) {
+        try {
+            String url="http://localhost:8080/api/v1/movies";
+            HttpEntity<MovieDto> movieDtoHttpEntity=new HttpEntity<>(movieDto);
+            ResponseEntity<MovieDto> response = restTemplate.postForEntity(url, movieDtoHttpEntity, MovieDto.class);
+            if (response.getBody()==null){
+                return new ResponseDto("04","Movie Already Exists",null);
+            }
+            return new ResponseDto("00","Success",null);
+        }catch (BadRequestException ex){
+            throw new BadRequestException();
+        }
     }
 
 }

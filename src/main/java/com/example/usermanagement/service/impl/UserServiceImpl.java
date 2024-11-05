@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
             return new ResponseDto("00",
                     "Success",
-                    new TokenDto(toke));
+                    null);
 
         }catch (Exception ex){
             log.error("Bad Request");
