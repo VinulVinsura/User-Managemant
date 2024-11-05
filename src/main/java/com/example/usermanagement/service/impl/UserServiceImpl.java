@@ -43,12 +43,12 @@ public class UserServiceImpl implements UserService {
                     userDto.getFirstName(),
                     userDto.getLastName(),
                     passwordEncoder.encode(userDto.getPassword()));
-            User saveUser = userRepo.save(user);
-            String toke = jwtService.generateToke(saveUser);
+            User save = userRepo.save(user);
+            String toke = jwtService.generateToke(save);
 
             return new ResponseDto("00",
                     "Success",
-                    null);
+                    new TokenDto(toke));
 
         }catch (Exception ex){
             log.error("Bad Request");
@@ -84,12 +84,6 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findByEmail(loginDto.getEmail()).orElseThrow();
         String toke = jwtService.generateToke(user);
         TokenDto tokenDto=new TokenDto(toke);
-        if (toke==null){
-            return new ResponseDto("03",
-                    "Invalid Credentials",
-                    null);
-
-        }
         return new ResponseDto("00",
                 "Success",
                 tokenDto);
