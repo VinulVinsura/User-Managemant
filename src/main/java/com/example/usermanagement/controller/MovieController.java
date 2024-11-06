@@ -30,4 +30,9 @@ public class MovieController {
     public ResponseEntity<ResponseDto> addMovie(@RequestBody MovieDto movieDto){
         return ResponseEntity.ok(movieService.addMovie(movieDto));
     }
+
+    @DeleteMapping("/delete/{imdb}")
+    public ResponseEntity<ResponseDto> deleteMovie(@PathVariable String imdb){
+        return ResponseEntity.ok(movieService.deleteMovie(imdb));
+    }
 }

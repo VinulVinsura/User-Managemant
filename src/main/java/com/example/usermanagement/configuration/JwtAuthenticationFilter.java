@@ -35,13 +35,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
 
 
+
             if (authHeader ==null || !authHeader.startsWith("Bearer ")){
-                filterChain.doFilter(request,response);
+                if(request.getServletPath().equals("/api/v1/users/login") |
+                        request.getServletPath().equals("/api/v1/users/signup")){
+                    filterChain.doFilter(request,response);
+                    return;
+                }
                 ResponseDto responseDto=new ResponseDto("03","Not Authorized",null);
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setContentType("application/json");
                 ObjectMapper mapper=new ObjectMapper();
                 response.getWriter().write(mapper.writeValueAsString(responseDto));
+
                 return;
 
             }

@@ -11,4 +11,5 @@ public interface MovieService {
     ResponseDto getAllMovies();
     ResponseDto getMovieByImdb(String imdb);
     ResponseDto addMovie(MovieDto movieDto);
+    ResponseDto deleteMovie(String imdb);
 }

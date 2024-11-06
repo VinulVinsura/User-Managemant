@@ -9,6 +9,7 @@ import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -66,6 +67,19 @@ public class MovieServiceImpl implements MovieService {
             return new ResponseDto("00","Success",null);
         }catch (BadRequestException ex){
             throw new BadRequestException();
+        }
+    }
+
+    @Override
+    public ResponseDto deleteMovie(String imdb) {
+        try {
+
+            String url="http://localhost:8080/api/v1/movies/{imdb}";
+            ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.DELETE, null, ResponseDto.class, imdb);
+            return response.getBody();
+        }catch (Exception ex){
+            log.error(imdb);
+           throw new BadRequestException();
         }
     }
 
