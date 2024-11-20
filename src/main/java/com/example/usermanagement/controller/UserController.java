@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
@@ -27,6 +27,13 @@ public class UserController {
         return ResponseEntity.ok(userService.login(loginDto));
 
     }
+
+    @GetMapping("/demo")
+    public ResponseEntity<ResponseDto> demo(){
+        return ResponseEntity.ok(new ResponseDto("00","Demo Api",null));
+    }
+
+
 
 
 }

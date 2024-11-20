@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
             if (authHeader ==null || !authHeader.startsWith("Bearer ")){
-                if(request.getServletPath().equals("/api/v1/users/login") |
+                if(request.getServletPath().equals("/api/v1/users/login") ||
                         request.getServletPath().equals("/api/v1/users/signup")){
                     filterChain.doFilter(request,response);
                     return;

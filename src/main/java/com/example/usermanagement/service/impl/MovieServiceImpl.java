@@ -73,7 +73,6 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public ResponseDto deleteMovie(String imdb) {
         try {
-
             String url="http://localhost:8080/api/v1/movies/{imdb}";
             ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.DELETE, null, ResponseDto.class, imdb);
             return response.getBody();
